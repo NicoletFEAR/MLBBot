@@ -12,6 +12,7 @@ package com.nicoletfear.mlbbot.commands;
 public class Drive extends CommandBase {
     
     public Drive() {
+        requires(driveTrain);
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     }
