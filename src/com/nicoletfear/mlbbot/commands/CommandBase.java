@@ -3,7 +3,7 @@ package com.nicoletfear.mlbbot.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import com.nicoletfear.mlbbot.OI;
-import com.nicoletfear.mlbbot.subsystems.ExampleSubsystem;
+import com.nicoletfear.mlbbot.subsystems.*;
 
 /**
  * The base for all commands. All atomic commands should subclass CommandBase.
@@ -16,9 +16,11 @@ public abstract class CommandBase extends Command {
     public static OI oi;
     // Create a single static instance of all of your subsystems
     public static ExampleSubsystem exampleSubsystem = new ExampleSubsystem();
-
+    public static DriveTrain driveTrain = new DriveTrain();
+    public static BallShooter ballShooter = new BallShooter();
+    
     public static void init() {
-        // This MUST be here. If the OI creates Commands (which it very likely
+        // This MUST be here. If the OI creates Commands (which it vy likely
         // will), constructing it during the construction of CommandBase (from
         // which commands extend), subsystems are not guaranteed to be
         // yet. Thus, their requires() statements may grab null pointers. Bad
