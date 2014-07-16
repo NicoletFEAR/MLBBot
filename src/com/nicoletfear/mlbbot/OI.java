@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.Joystick;
  */
 public class OI {
     //// CREATING BUTTONS
-    Joystick drivestick = new Joystick(1);
+    public final Joystick driveStick = new Joystick(1);
     //type of button is a joystick button which is any button on a joystick.
     // You create one by telling it which joystick it's on and which button
     // number it is.

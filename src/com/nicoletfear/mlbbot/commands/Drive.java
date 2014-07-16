@@ -5,6 +5,8 @@
  */
 package com.nicoletfear.mlbbot.commands;
 
+import com.nicoletfear.mlbbot.xbox.Axes;
+
 /**
  *
  * @author fear
@@ -23,6 +25,11 @@ public class Drive extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+        double rightWheel = oi.driveStick.getRawAxis(Axes.RightControlStickY);
+        
+        double leftWheel = oi.driveStick.getRawAxis(Axes.leftControlStickY);
+        
+        driveTrain.driveWheels(leftWheel, rightWheel);
     }
 
     // Make this return true when this Command no longer needs to run execute()
