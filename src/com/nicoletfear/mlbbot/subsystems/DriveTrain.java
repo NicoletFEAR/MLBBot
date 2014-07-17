@@ -5,6 +5,7 @@
  */
 package com.nicoletfear.mlbbot.subsystems;
 
+import com.nicoletfear.mlbbot.Velocities;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import com.nicoletfear.mlbbot.commands.Drive;
 import edu.wpi.first.wpilibj.SpeedController;
@@ -30,13 +31,15 @@ public class DriveTrain extends Subsystem {
     }
     public void driveWheels(double left, double right){
        double lastRight = -rightWheel.get();//undo negatives from setting motors
-        double newVelo = calculateNewVelocity(right, lastRight);
+        double newVeloRight = calculateNewVelocity(right, lastRight);
       
-       rightWheel.set(-newVelo);
        double lastLeft = -leftWheel.get();
-        newVelo = calculateNewVelocity(left, lastLeft);
-       leftWheel.set(-newVelo);//wheels would run backwards without negative.
-       System.out.println(lastLeft + "," + newVelo);
+       double newVeloLeft = calculateNewVelocity(left, lastLeft);
+
+       Velocities correctedTurn = correctForTurning(-newVeloLeft, -newVeloRight); //wheels would run backwards without negative.
+       rightWheel.set(correctedTurn.getRightVelocity());
+       leftWheel.set(correctedTurn.getLeftVelocity());
+       System.out.println(correctedTurn.getLeftVelocity() + "," + correctedTurn.getRightVelocity()); 
     }
 
     /**
@@ -60,5 +63,24 @@ public class DriveTrain extends Subsystem {
         } return newVelo;
     }
    
-    
+    /**
+     * The two velocities decides which direction the robot moves
+     * @param leftVelocity
+     * @param rightVelocity
+     * @return returns the NewVelocities by keeping one the same and replacing the other with a min value.
+     */
+    private Velocities correctForTurning(double leftVelocity, double rightVelocity) {
+       double min = 0.07;
+       if (leftVelocity > 0 && rightVelocity <= 0)
+       {
+          return new Velocities (leftVelocity, /* rightVelocity */ min);
+       }
+       else if (leftVelocity <= 0 && rightVelocity > 0){
+          return new Velocities (/* leftVelocity */ min, rightVelocity); 
+       }
+       else
+       {
+           return new Velocities(leftVelocity, rightVelocity); 
+       }
+    }
 }
