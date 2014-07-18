@@ -18,4 +18,8 @@ public class RobotMap {
     // public static final int rangefinderModule = 1;
     public static final int leftWheelPort = 1;
     public static final int rightWheelPort = 2;
+    public static final int chargingMotorPort = 3;
+    public static final int disengageSolenoidPort = 1;
+    public static final int engageSoleniodPort = 2;
+    public static final int ballShooterLimitSwitch = 1;
 }
