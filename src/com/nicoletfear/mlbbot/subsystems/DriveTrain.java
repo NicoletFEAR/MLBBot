@@ -5,6 +5,7 @@
  */
 package com.nicoletfear.mlbbot.subsystems;
 
+import com.nicoletfear.mlbbot.RobotMap;
 import com.nicoletfear.mlbbot.Velocities;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import com.nicoletfear.mlbbot.commands.Drive;
@@ -21,8 +22,8 @@ public class DriveTrain extends Subsystem {
     private SpeedController leftWheel;  
     
     public DriveTrain(){
-        leftWheel = new Victor(1);
-        rightWheel = new Victor(2);
+        leftWheel = new Victor(RobotMap.leftWheelPort);
+        rightWheel = new Victor(RobotMap.rightWheelPort);
     }
     public void initDefaultCommand() {
     setDefaultCommand(new Drive());       
