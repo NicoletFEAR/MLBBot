@@ -1,7 +1,12 @@
 
 package com.nicoletfear.mlbbot;
 
+import com.nicoletfear.mlbbot.commands.LoadBall;
+import com.nicoletfear.mlbbot.commands.ShootBall;
+import com.nicoletfear.mlbbot.xbox.Buttons;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.buttons.Button;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -10,6 +15,13 @@ import edu.wpi.first.wpilibj.Joystick;
 public class OI {
     //// CREATING BUTTONS
     public final Joystick driveStick = new Joystick(1);
+    public final Button aButton = new JoystickButton(driveStick, Buttons.A);
+    public final Button bButton = new JoystickButton(driveStick, Buttons.B);
+    public OI() {
+        aButton.whenPressed(new ShootBall());
+        bButton.toggleWhenPressed(new LoadBall());
+    }
+
     //type of button is a joystick button which is any button on a joystick.
     // You create one by telling it which joystick it's on and which button
     // number it is.

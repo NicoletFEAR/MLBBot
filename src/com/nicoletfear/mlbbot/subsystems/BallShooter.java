@@ -5,6 +5,7 @@
  */
 package com.nicoletfear.mlbbot.subsystems;
 
+import com.nicoletfear.mlbbot.RobotMap;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
@@ -15,8 +16,8 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class BallShooter extends Subsystem {
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
-    private Solenoid solenoidLoad;
-    private Solenoid solenoidClutch;
+    private Solenoid solenoidLoad = new Solenoid(RobotMap.loadSolenoidPort);
+    private Solenoid solenoidClutch = new Solenoid(RobotMap.clutchSolenoidPort);
 
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
