@@ -18,6 +18,7 @@ public abstract class CommandBase extends Command {
     public static ExampleSubsystem exampleSubsystem = new ExampleSubsystem();
     public static DriveTrain driveTrain = new DriveTrain();
     public static BallShooter ballShooter = new BallShooter();
+    public static Lights lights = new Lights();
     
     public static void init() {
         // This MUST be here. If the OI creates Commands (which it vy likely
