@@ -32,15 +32,28 @@ public class DriveTrain extends Subsystem {
     }
     public void driveWheels(double left, double right){
        double lastRight = -rightWheel.get();//undo negatives from setting motors
+       right = zeroWithinDeadzone(right);
         double newVeloRight = calculateNewVelocity(right, lastRight);
       
        double lastLeft = -leftWheel.get();
+       left = zeroWithinDeadzone(left);
        double newVeloLeft = calculateNewVelocity(left, lastLeft);
 
        Velocities correctedTurn = correctForTurning(-newVeloLeft, -newVeloRight); //wheels would run backwards without negative.
        rightWheel.set(correctedTurn.getRightVelocity());
        leftWheel.set(correctedTurn.getLeftVelocity());
        System.out.println(correctedTurn.getLeftVelocity() + "," + correctedTurn.getRightVelocity()); 
+    }
+    
+    /**
+     * Returns 0 when value is within deadzone, otherwise returns the value.
+     * @param value The value to check.
+     * @return 0 when value is within deadzone, otherwise returns the value.
+     */
+    private double zeroWithinDeadzone(double value) {
+        final double deadzone = .04;
+        if(Math.abs(value) < deadzone) return 0;
+        else return value;
     }
 
     /**
