@@ -85,15 +85,19 @@ public class DriveTrain extends Subsystem {
      */
     private Velocities correctForTurning(double leftVelocity, double rightVelocity) {
        double min = 0.07;
-       if (leftVelocity > 0 && rightVelocity <= 0)
-       {
+       if (leftVelocity > 0 && rightVelocity <= 0) {
           return new Velocities (leftVelocity, /* rightVelocity */ min);
        }
-       else if (leftVelocity <= 0 && rightVelocity > 0){
+       else if (leftVelocity <= 0 && rightVelocity > 0) {
           return new Velocities (/* leftVelocity */ min, rightVelocity); 
        }
-       else
-       {
+       else if (leftVelocity == 0 && rightVelocity < 0) {
+           return new Velocities(/* leftVelocity */ -min, rightVelocity);
+       }
+       else if (leftVelocity < 0 && rightVelocity == 0) {
+           return new Velocities(leftVelocity, /* rightVelocity */ -min);
+       }
+       else {
            return new Velocities(leftVelocity, rightVelocity); 
        }
     }
