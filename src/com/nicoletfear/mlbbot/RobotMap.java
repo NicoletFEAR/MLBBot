@@ -19,5 +19,5 @@ public class RobotMap {
     public static final int leftWheelPort = 1;
     public static final int rightWheelPort = 2;
     public static final int loadSolenoidPort = 1;
-    public static final int clutchSolenoidPort = 2;
+    public static final int clutchRelayPort = 2;
 }
