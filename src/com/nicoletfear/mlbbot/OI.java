@@ -2,7 +2,7 @@
 package com.nicoletfear.mlbbot;
 
 import com.nicoletfear.mlbbot.commands.LoadBall;
-import com.nicoletfear.mlbbot.commands.ShootBall;
+import com.nicoletfear.mlbbot.commands.StartBallShootSequence;
 import com.nicoletfear.mlbbot.xbox.Buttons;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -18,7 +18,7 @@ public class OI {
     public final Button aButton = new JoystickButton(driveStick, Buttons.A);
     public final Button bButton = new JoystickButton(driveStick, Buttons.B);
     public OI() {
-        aButton.whenPressed(new ShootBall());
+        aButton.whenPressed(new StartBallShootSequence());
         bButton.toggleWhenPressed(new LoadBall());
     }
 
