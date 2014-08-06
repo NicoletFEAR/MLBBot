@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import com.nicoletfear.mlbbot.commands.Drive;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.Victor;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 /**
  *
  * @author fear
@@ -63,7 +64,7 @@ public class DriveTrain extends Subsystem {
      * @return the new velocity
      */
     private double calculateNewVelocity(double joyStick, double last) {
-        double maxAcc = 0.1;
+        double maxAcc = SmartDashboard.getNumber("maxAcc");
         double change = joyStick - last;
         double newVelo = 0.0;
         if (change <= -maxAcc){
@@ -84,7 +85,7 @@ public class DriveTrain extends Subsystem {
      * @return returns the NewVelocities by keeping one the same and replacing the other with a min value.
      */
     private Velocities correctForTurning(double leftVelocity, double rightVelocity) {
-       double min = 0.07;
+       double min = SmartDashboard.getNumber("minVelocity");
        if (leftVelocity > 0 && rightVelocity <= 0) {
           return new Velocities (leftVelocity, /* rightVelocity */ min);
        }

@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import com.nicoletfear.mlbbot.commands.CommandBase;
 import com.nicoletfear.mlbbot.commands.ExampleCommand;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -36,6 +37,10 @@ public class MLBBot extends IterativeRobot {
 
         // Initialize all subsystems
         CommandBase.init();
+        
+        // SmartDashboard visuals for DriveTrain tuning
+        SmartDashboard.putNumber("maxAcc", .1);
+        SmartDashboard.putNumber("minVelocity", .07);
     }
 
     public void autonomousInit() {
