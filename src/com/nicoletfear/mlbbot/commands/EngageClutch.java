@@ -7,15 +7,14 @@ package com.nicoletfear.mlbbot.commands;
 
 /**
  *
- * @author FEAR
+ * @author fear
  */
-public class ShootBall extends CommandBase {
+public class EngageClutch extends CommandBase {
     
-    public ShootBall() {
+    public EngageClutch() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
         requires(ballShooter);
-        setTimeout(2);
     }
 
     // Called just before this Command runs the first time
@@ -24,12 +23,12 @@ public class ShootBall extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        ballShooter.fire();
+        ballShooter.engageClutch();
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return isTimedOut();
+        return false;
     }
 
     // Called once after isFinished returns true
