@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import com.nicoletfear.mlbbot.commands.CommandBase;
 import com.nicoletfear.mlbbot.commands.ExampleCommand;
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
@@ -61,6 +62,8 @@ public class MLBBot extends IterativeRobot {
         // continue until interrupted by another command, remove
         // this line or comment it out.
         autonomousCommand.cancel();
+        Compressor compressor = new Compressor(RobotMap.pressureSwitchChannel, RobotMap.compressorRelayChannel);
+        compressor.start();
     }
 
     /**

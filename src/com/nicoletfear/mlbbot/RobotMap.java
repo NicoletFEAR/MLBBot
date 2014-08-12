@@ -26,5 +26,8 @@ public class RobotMap {
     public static final int readyRelay = 1;
     public static final int aimRelay = 2;
     public static final int fireRelay = 3;
-    public static final int runningLightsRelay = 4;  
+    public static final int runningLightsRelay = 4;
+    
+    public static final int pressureSwitchChannel = 1;
+    public static final int compressorRelayChannel = 8;
 }
