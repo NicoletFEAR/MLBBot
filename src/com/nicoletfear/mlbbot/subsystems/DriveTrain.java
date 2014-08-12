@@ -32,16 +32,16 @@ public class DriveTrain extends Subsystem {
         //setDefaultCommand(new MySpecialCommand());
     }
     public void driveWheels(double left, double right){
-       double lastRight = -rightWheel.get();//undo negatives from setting motors
+       double lastRight = rightWheel.get();
        right = zeroWithinDeadzone(right);
         double newVeloRight = calculateNewVelocity(right, lastRight);
       
-       double lastLeft = -leftWheel.get();
+       double lastLeft = -leftWheel.get();//undo negatives from setting motors
        left = zeroWithinDeadzone(left);
        double newVeloLeft = calculateNewVelocity(left, lastLeft);
 
        Velocities correctedTurn = correctForTurning(-newVeloLeft, -newVeloRight); //wheels would run backwards without negative.
-       rightWheel.set(correctedTurn.getRightVelocity());
+       rightWheel.set(-correctedTurn.getRightVelocity());
        leftWheel.set(correctedTurn.getLeftVelocity());
        System.out.println(correctedTurn.getLeftVelocity() + "," + correctedTurn.getRightVelocity()); 
     }
