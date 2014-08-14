@@ -65,17 +65,31 @@ public class DriveTrain extends Subsystem {
      */
     private double calculateNewVelocity(double joyStick, double last) {
         double maxAcc = SmartDashboard.getNumber("maxAcc");
+        //double maxDecel = SmartDashboard.getNumber("maxDecel");
+        double maxDecel = 0.1;
         double change = joyStick - last;
         double newVelo = 0.0;
-        if (change <= -maxAcc){
-            newVelo = last -maxAcc;
+        
+        if (change <= 0 &&  joyStick > 0)
+        {
+            newVelo = last - maxDecel;//decel forward <- fast acel
         }
-        else if (change >= maxAcc){
-            newVelo = last +maxAcc;
+        else if (change <= 0 & joyStick < 0)
+        {
+            newVelo = last - maxAcc;//Accel back <- slow accel
+        }
+        else if (change >= 0 & joyStick > 0)
+        {
+            newVelo = last + maxAcc;//Accel foward <- slow accel
+        }
+        else if (change >= 0 & joyStick < 0)
+        {
+            newVelo = last + maxDecel;//decel back <- fast accel
         }
         else{
             newVelo = last + change;
         } return newVelo;
+        
     }
    
     /**
