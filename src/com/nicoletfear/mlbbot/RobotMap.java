@@ -20,6 +20,7 @@ public class RobotMap {
     public static final int rightWheelPort = 2;
     public static final int loadSolenoidPort = 1;
     public static final int clutchRelayPort = 7;
+    public static final int reloadSolenoidPort = 2;
     
     
     public static final int lightsModule = 1;

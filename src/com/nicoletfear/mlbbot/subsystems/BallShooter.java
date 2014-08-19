@@ -20,6 +20,7 @@ public class BallShooter extends Subsystem {
     // here. Call these from Commands.
     private Solenoid solenoidLoad = new Solenoid(RobotMap.loadSolenoidPort);
     private Relay relayClutch = new Relay(RobotMap.clutchRelayPort);
+    private Solenoid solenoidReload = new Solenoid(RobotMap.reloadSolenoidPort);
 
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
@@ -31,8 +32,23 @@ public class BallShooter extends Subsystem {
         relayClutch.set(Relay.Value.kOff);
     }
     public void load(){
+        solenoidReload.set(false);
         solenoidLoad.set(true);
     }
+    
+    public void disengageLoader(){
+        solenoidLoad.set(false);
+    }
+    
+    public void resetLoader(){
+        solenoidLoad.set(false);
+        solenoidReload.set(true);
+    }
+    
+    public void disengageResetLoader(){
+        solenoidReload.set(false);
+    }
+    
     public void engageClutch(){
         relayClutch.set(Relay.Value.kForward);
     }

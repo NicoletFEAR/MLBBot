@@ -33,6 +33,12 @@ public abstract class CommandBase extends Command {
         SmartDashboard.putData(driveTrain);
         SmartDashboard.putData(ballShooter);
         SmartDashboard.putData(lights);
+        SmartDashboard.putData(new TurnOnAimLights());
+        SmartDashboard.putData(new TurnOnFireLights());
+        SmartDashboard.putData(new TurnOnReadyLights());
+        SmartDashboard.putData(new TurnShootingLightsOff());
+        SmartDashboard.putData(new StartBallShootSequence());
+        SmartDashboard.putData(new LoadBall());
     }
 
     public CommandBase(String name) {

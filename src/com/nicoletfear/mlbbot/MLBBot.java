@@ -27,7 +27,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class MLBBot extends IterativeRobot {
 
     Command autonomousCommand;
-
+    Compressor compressor;
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
@@ -39,8 +39,11 @@ public class MLBBot extends IterativeRobot {
         // Initialize all subsystems
         CommandBase.init();
         
+        compressor = new Compressor(RobotMap.pressureSwitchChannel, RobotMap.compressorRelayChannel);
+        compressor.start();
+        
         // SmartDashboard visuals for DriveTrain tuning
-        SmartDashboard.putNumber("maxAcc", .1);
+        SmartDashboard.putNumber("maxAcc", .01);
         SmartDashboard.putNumber("minVelocity", .07);
     }
 
@@ -62,8 +65,7 @@ public class MLBBot extends IterativeRobot {
         // continue until interrupted by another command, remove
         // this line or comment it out.
         autonomousCommand.cancel();
-        Compressor compressor = new Compressor(RobotMap.pressureSwitchChannel, RobotMap.compressorRelayChannel);
-        compressor.start();
+        
     }
 
     /**

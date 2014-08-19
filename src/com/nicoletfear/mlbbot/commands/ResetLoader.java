@@ -9,9 +9,9 @@ package com.nicoletfear.mlbbot.commands;
  *
  * @author FEAR
  */
-public class LoadBall extends CommandBase {
+public class ResetLoader extends CommandBase {
     
-    public LoadBall() {
+    public ResetLoader() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
         requires(ballShooter);
@@ -23,7 +23,7 @@ public class LoadBall extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        ballShooter.load();
+        ballShooter.resetLoader();
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -33,7 +33,7 @@ public class LoadBall extends CommandBase {
 
     // Called once after isFinished returns true
     protected void end() {
-       ballShooter.disengageLoader();
+        ballShooter.disengageResetLoader();
     }
 
     // Called when another command which requires one or more of the same

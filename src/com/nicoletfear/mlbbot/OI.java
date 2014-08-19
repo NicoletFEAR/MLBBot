@@ -2,6 +2,7 @@
 package com.nicoletfear.mlbbot;
 
 import com.nicoletfear.mlbbot.commands.LoadBall;
+import com.nicoletfear.mlbbot.commands.ResetLoader;
 import com.nicoletfear.mlbbot.commands.StartBallShootSequence;
 import com.nicoletfear.mlbbot.xbox.Buttons;
 import edu.wpi.first.wpilibj.Joystick;
@@ -17,9 +18,12 @@ public class OI {
     public final Joystick driveStick = new Joystick(1);
     public final Button aButton = new JoystickButton(driveStick, Buttons.A);
     public final Button bButton = new JoystickButton(driveStick, Buttons.B);
+    public final Button xButton = new JoystickButton(driveStick, Buttons.X);
     public OI() {
         aButton.whenPressed(new StartBallShootSequence());
         bButton.toggleWhenPressed(new LoadBall());
+        xButton.toggleWhenPressed(new ResetLoader());
+        
     }
 
     //type of button is a joystick button which is any button on a joystick.
