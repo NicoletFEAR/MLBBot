@@ -1,6 +1,7 @@
 
 package com.nicoletfear.mlbbot;
 
+import com.nicoletfear.mlbbot.commands.DriveZeroTurn;
 import com.nicoletfear.mlbbot.commands.LoadBall;
 import com.nicoletfear.mlbbot.commands.ResetLoader;
 import com.nicoletfear.mlbbot.commands.StartBallShootSequence;
@@ -19,10 +20,12 @@ public class OI {
     public final Button aButton = new JoystickButton(driveStick, Buttons.A);
     public final Button bButton = new JoystickButton(driveStick, Buttons.B);
     public final Button xButton = new JoystickButton(driveStick, Buttons.X);
+    public final Button leftBumper = new JoystickButton(driveStick, Buttons.LeftBump);
     public OI() {
         aButton.whenPressed(new StartBallShootSequence());
         bButton.toggleWhenPressed(new LoadBall());
         xButton.toggleWhenPressed(new ResetLoader());
+        leftBumper.whileHeld(new DriveZeroTurn());
         
     }
 

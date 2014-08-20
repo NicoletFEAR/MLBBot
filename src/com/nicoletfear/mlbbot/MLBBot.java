@@ -45,6 +45,7 @@ public class MLBBot extends IterativeRobot {
         // SmartDashboard visuals for DriveTrain tuning
         SmartDashboard.putNumber("maxAcc", .01);
         SmartDashboard.putNumber("minVelocity", .07);
+        SmartDashboard.putNumber("SpeedControl", .1);//Sharper tuns = bigger number, duller turns = smaller numbr
     }
 
     public void autonomousInit() {

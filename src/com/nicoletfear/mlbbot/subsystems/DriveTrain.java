@@ -7,8 +7,8 @@ package com.nicoletfear.mlbbot.subsystems;
 
 import com.nicoletfear.mlbbot.RobotMap;
 import com.nicoletfear.mlbbot.Velocities;
-import edu.wpi.first.wpilibj.command.Subsystem;
 import com.nicoletfear.mlbbot.commands.Drive;
+import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -31,21 +31,36 @@ public class DriveTrain extends Subsystem {
 // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
     }
-    public void driveWheels(double left, double right){
-       double lastRight = rightWheel.get();
-       right = zeroWithinDeadzone(right);
-        double newVeloRight = calculateNewVelocity(right, lastRight);
-      
-       double lastLeft = -leftWheel.get();//undo negatives from setting motors
-       left = zeroWithinDeadzone(left);
-       double newVeloLeft = calculateNewVelocity(left, lastLeft);
-
-       Velocities correctedTurn = correctForTurning(-newVeloLeft, -newVeloRight); //wheels would run backwards without negative.
-       rightWheel.set(-correctedTurn.getRightVelocity());
-       leftWheel.set(correctedTurn.getLeftVelocity());
-       System.out.println(correctedTurn.getLeftVelocity() + "," + correctedTurn.getRightVelocity()); 
+    public void driveWheelsZeroTurn(double left, double right){
+       Velocities newVelocities = calculateNewVelocityAndAccountForDeadzone(left, right);
+       Velocities correctedTurn = correctForTurningZeroTurn(newVelocities); 
+        outputToWheels(correctedTurn);
     }
     
+    public void driveWheels(double left, double right) {
+        Velocities newVelocities = calculateNewVelocityAndAccountForDeadzone(left, right);
+        Velocities correctedTurn = correctForTurning(newVelocities);
+        outputToWheels(correctedTurn);
+    }
+
+    private void outputToWheels(Velocities correctedTurn) {
+        rightWheel.set(-correctedTurn.getRightVelocity());
+        leftWheel.set(correctedTurn.getLeftVelocity());
+        System.out.println(correctedTurn.getLeftVelocity() + "," + correctedTurn.getRightVelocity());
+    }
+
+    private Velocities calculateNewVelocityAndAccountForDeadzone(double left, double right) {
+        double lastRight = rightWheel.get();
+        right = zeroWithinDeadzone(right);
+        double newVeloRight = calculateNewVelocity(right, lastRight);
+        double lastLeft = -leftWheel.get();//undo negatives from setting motors
+        left = zeroWithinDeadzone(left);
+        double newVeloLeft = calculateNewVelocity(left, lastLeft);
+        Velocities newVelocities = new Velocities(-newVeloLeft, -newVeloRight);//wheels would run backwards without negative.
+        return newVelocities;
+    }
+    
+       
     /**
      * Returns 0 when value is within deadzone, otherwise returns the value.
      * @param value The value to check.
@@ -98,7 +113,9 @@ public class DriveTrain extends Subsystem {
      * @param rightVelocity
      * @return returns the NewVelocities by keeping one the same and replacing the other with a min value.
      */
-    private Velocities correctForTurning(double leftVelocity, double rightVelocity) {
+    private Velocities correctForTurningZeroTurn(Velocities velocities) {
+       double leftVelocity = velocities.getLeftVelocity();
+       double rightVelocity = velocities.getRightVelocity();
        double min = SmartDashboard.getNumber("minVelocity");
        if (leftVelocity > 0 && rightVelocity <= 0) {
           return new Velocities (leftVelocity, /* rightVelocity */ min);
@@ -115,5 +132,39 @@ public class DriveTrain extends Subsystem {
        else {
            return new Velocities(leftVelocity, rightVelocity); 
        }
+    }
+    private Velocities correctForTurning (Velocities velocities) {
+        double maxDiff = SmartDashboard.getNumber("SpeedControl");
+       double leftVelocity = velocities.getLeftVelocity();
+       double rightVelocity = velocities.getRightVelocity();
+        if(leftVelocity > 0 || rightVelocity > 0) {
+            if (maxDiff < leftVelocity - rightVelocity )
+            {
+            return new Velocities (leftVelocity, leftVelocity - maxDiff);
+
+            }
+            else if (maxDiff < rightVelocity - leftVelocity )
+            {
+                return new Velocities (rightVelocity - maxDiff, rightVelocity);
+            }
+            else
+            {
+                return new Velocities(leftVelocity, rightVelocity); 
+            }
+        }
+        else {
+            if (maxDiff < leftVelocity - rightVelocity )
+            {
+                return new Velocities(rightVelocity + maxDiff, rightVelocity); 
+            }
+            else if (maxDiff < rightVelocity - leftVelocity )
+            {
+                return new Velocities(leftVelocity, leftVelocity + maxDiff); 
+            }
+            else
+            {
+                return new Velocities(leftVelocity, rightVelocity); 
+            }
+        }
     }
 }
